@@ -50,7 +50,7 @@ class Bank:
                     deposit = dep + val
                     self.c.execute("UPDATE Bank SET balance = ? WHERE acc_num = ?", (deposit, a_num))
                     self.con.commit()
-                    print("Amount Deposited {}₹. Available balance is {}₹".format(dep, deposit))
+                    print("Amount Deposited {}$. Available balance is {}$".format(dep, deposit))
 
                 elif flag and (ope == 'w' or ope == 'W'):
                     wit = int(input("Enter the Amount to withdraw: "))
@@ -58,12 +58,12 @@ class Bank:
                         withdraw_bal = val - wit
                         self.c.execute("UPDATE Bank SET balance = ? WHERE acc_num = ?", (withdraw_bal, a_num))
                         self.con.commit()
-                        print("Withdraw {}₹, done successfully. Available balance {}₹".format(wit, withdraw_bal))
+                        print("Withdraw {}$, done successfully. Available balance {}$".format(wit, withdraw_bal))
                     else:
                         print("Low Balance.")
 
                 elif flag and (ope == 'c' or ope == 'C'):
-                    print("Hello {}, Your Account balance is {}₹".format(na, val))
+                    print("Hello {}, Your Account balance is {}$".format(na, val))
 
         if check:
             print("Invalid Account Number...")
