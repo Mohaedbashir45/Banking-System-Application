@@ -1,0 +1,144 @@
+[33mcommit 2a832249da4c54c8f1059a59cbed4f73def1e255[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: mohaedbashir45 <mohaedbashir45@gmail.com>
+Date:   Fri Sep 5 18:24:01 2025 +0300
+
+    done
+
+[1mdiff --git a/Banking-System.py b/Banking-System.py[m
+[1mindex 3c20dc8..a7e3a14 100644[m
+[1m--- a/Banking-System.py[m
+[1m+++ b/Banking-System.py[m
+[36m@@ -50,7 +50,7 @@[m [mclass Bank:[m
+                     deposit = dep + val[m
+                     self.c.execute("UPDATE Bank SET balance = ? WHERE acc_num = ?", (deposit, a_num))[m
+                     self.con.commit()[m
+[31m-                    print("Amount Deposited {}₹. Available balance is {}₹".format(dep, deposit))[m
+[32m+[m[32m                    print("Amount Deposited {}$. Available balance is {}$".format(dep, deposit))[m
+ [m
+                 elif flag and (ope == 'w' or ope == 'W'):[m
+                     wit = int(input("Enter the Amount to withdraw: "))[m
+[36m@@ -58,12 +58,12 @@[m [mclass Bank:[m
+                         withdraw_bal = val - wit[m
+                       
+                         self.c.execute("UPDATE Bank SET balance = ? WHERE acc_num = ?", (withdraw_bal, a_num))[m
+                         self.con.commit()[m
+[31m-                        print("Withdraw {}₹, done successfully. Available balance {}₹".format(wit, withdraw_bal))[m
+[32m+[m[32m                        print("Withdraw {}$, done successfully. Available balance {}$".format(wit, withdraw_bal))[m
+                     else:[m
+                         print("Low Balance.")[m
+ [m
+                 elif flag and (ope == 'c' or ope == 'C'):[m
+[31m-                    print("Hello {}, Your Account balance is {}₹".format(na, val))[m
+[32m+[m[32m                    print("Hello {}, Your Account balance is {}$".format(na, val))[m
+ [m
+         if check:[m
+             print("Invalid Account Number...")[m
+
+[33mcommit 815d36f2c850b2d93fe5d5740a19b3e2a1a3e187[m
+Author: mohamedbashir <mohaedbashir45@gmail.com>
+Date:   Thu Mar 21 14:47:48 2024 +0300
+
+    done
+
+[1mdiff --git a/Banking-System.py b/Banking-System.py[m
+[1mindex 8b13789..3c20dc8 100644[m
+[1m--- a/Banking-System.py[m
+[1m+++ b/Banking-System.py[m
+[36m@@ -1 +1,83 @@[m
+[32m+[m[32mimport sqlite3[m
+[32m+[m[32mimport random as r[m
+[32m+[m
+[32m+[m[32mclass Bank:[m
+[32m+[m[32m    print("WELCOME TO THE BANK")[m
+[32m+[m
+[32m+[m[32m    def __init__(self):[m
+[32m+[m[32m        self.con = sqlite3.connect("Bank.db")[m
+[32m+[m[32m        self.c = self.con.cursor()[m
+[32m+[m
+[32m+[m[32m    def CreateAccount(self):[m
+[32m+[m[32m        self.c.execute("""CREATE TABLE IF NOT EXISTS Bank ([m
+[32m+[m[32m                          account_name TEXT,[m
+[32m+[m[32m                          acc_num INTEGER,[m
+[32m+[m[32m                          balance INTEGER[m[41m                                             [m
+[32m+[m[32m                      )""")[m
+[32m+[m[41m        [m
+[32m+[m[32m        n1 = input("Enter Your First Name: ").upper()[m
+[32m+[m[32m        n2 = input("Enter Your Second Name: ").upper()[m
+[32m+[m[41m        [m
+[32m+[m[32m        if n1.isalpha() and n2.isalpha():[m
+[32m+[m[32m            name = n1 + " " + n2[m
+[32m+[m[32m            num = r.randint(10000, 99999)[m[41m [m
+[32m+[m[32m            amount = 0[m
+[32m+[m[32m            self.c.execute("INSERT INTO Bank VALUES (?,?,?)", (name, num, amount))[m
+[32m+[m[32m            print("Your {} Account got created successfully...!".format(name))[m
+[32m+[m[32m            print("Please note down your account number: {}".format(num))[m
+[32m+[m[32m            self.con.commit()[m
+[32m+[m[32m        else:[m
+[32m+[m[32m            print("Enter valid name. Try again...!")[m
+[32m+[m
+[32m+[m[32m    def OpenAccount(self):[m[41m [m
+[32m+[m[32m        a_num = int(input("Enter your account number: "))[m
+[32m+[m[32m        check = True[m
+[32m+[m[32m        flag = False[m
+[32m+[m[32m        for a, b, c in self.c.execute("SELECT * FROM Bank"):[m
+[32m+[m[32m            if b == a_num:[m
+[32m+[m[32m                check = False[m
+[32m+[m[32m                flag = True[m
+[32m+[m[32m                val = c[m
+[32m+[m[32m                na = a[m
+[32m+[m
+[32m+[m[32m                print("(d)- Deposit")[m
+[32m+[m[32m                print("(w)- Withdraw")[m
+[32m+[m[32m                print("(c)- Check Balance")[m
+[32m+[m[32m                ope = input("Enter any of the operation (c)/(d)/(w): ")[m
+[32m+[m
+[32m+[m[32m                if flag and (ope == 'd' or ope == 'D'):[m
+[32m+[m[32m                    dep = int(input("Enter the amount to deposit: "))[m
+[32m+[m[32m                    deposit = dep + val[m
+[32m+[m[32m                    self.c.execute("UPDATE Bank SET balance = ? WHERE acc_num = ?", (deposit, a_num))[m
+[32m+[m[32m                    self.con.commit()[m
+[32m+[m[32m                    print("Amount Deposited {}₹. Available balance is {}₹".format(dep, deposit))[m
+[32m+[m
+[32m+[m[32m                elif flag and (ope == 'w' or ope == 'W'):[m
+[32m+[m[32m                    wit = int(input("Enter the Amount to withdraw: "))[m
+[32m+[m[32m                    if val >= wit:[m
+[32m+[m[32m                        withdraw_bal = val - wit[m
+[32m+[m[32m                        self.c.execute("UPDATE Bank SET balance = ? WHERE acc_num = ?", (withdraw_bal, a_num))[m
+[32m+[m[32m                        self.con.commit()[m
+[32m+[m[32m                        print("Withdraw {}₹, done successfully. Available balance {}₹".format(wit, withdraw_bal))[m
+[32m+[m[32m                    else:[m
+[32m+[m[32m                        print("Low Balance.")[m
+[32m+[m
+[32m+[m[32m                elif flag and (ope == 'c' or ope == 'C'):[m
+[32m+[m[32m                    print("Hello {}, Your Account balance is {}₹".format(na, val))[m
+[32m+[m
+[32m+[m[32m        if check:[m
+[32m+[m[32m            print("Invalid Account Number...")[m
+[32m+[m
+[32m+[m[32mbank = Bank()[m
+[32m+[m
+[32m+[m[32mprint("(c)- Create account")[m
+[32m+[m[32mprint("(o)- Open Account")[m
+[32m+[m[32mop = input("Enter your choice (c)/(o): ")[m
+[32m+[m
+[32m+[m[32mif op.lower() == 'c':[m
+[32m+[m[32m    bank.CreateAccount()[m
+[32m+[m[32melif op.lower() == 'o':[m
+[32m+[m[32m    bank.OpenAccount()[m
+[32m+[m[32melse:[m
+[32m+[m[32m    print("Invalid choice. Please select 'c' or 'o'.")[m
+ [m
+
+[33mcommit 630e7d6fa002757d5a2f754fd45a0f0e109bee25[m
+Author: Mohamed Bashir <140512187+Mohaedbashir45@users.noreply.github.com>
+Date:   Thu Mar 21 13:47:15 2024 +0300
+
+    Create Banking-System.py
+
+[1mdiff --git a/Banking-System.py b/Banking-System.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..8b13789[m
+[1m--- /dev/null[m
+[1m+++ b/Banking-System.py[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m
